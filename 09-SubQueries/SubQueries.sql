@@ -68,14 +68,119 @@ FROM
 	Vendas
 WHERE
 	ClienteID IN (SELECT ClienteID FROM Clientes WHERE DataCadastro > '2025-05-01')
+
+	
+-------------------------ANY, SOME e ALL---------------------
+USE BaseDeTreino;
+
+CREATE TABLE funcionarios(
+id_funcionario INT,
+nome VARCHAR(150),
+idade INT,
+sexo VARCHAR(50)
+)
+
+INSERT INTO
+	funcionarios (id_funcionario, nome, idade, sexo) 
+VALUES
+	(1, 'Júlia', 20, 'F'),
+	(2, 'Daniel', 21, 'M'),
+	(3, 'Amanda', 22, 'F'),
+	(4, 'Pedro', 23, 'M'),
+	(5, 'Otávio', 24, 'M'),
+	(6, 'Luísa', 25, 'F')
+	
+SELECT * FROM funcionarios
+
+/*
+ * Selecione os funcionários do sexo masculino (MAS, utilizando a coluna de IDADE para isso):
+ * Usando o ANY, que equivale a qualquer, nesse contexto a qualquer um dos valores da subquerie.
+ */ 
+
+
+/*
+ *  = ANY (valor1, valor2, valor3):
+ * 	Equivalente ao IN, retorna linhas da tabela que sejam iguais ao valor1, OU valor2, OU valor3
+ */
+
+SELECT
+	*
+FROM
+	funcionarios
+WHERE
+	idade = ANY (SELECT idade FROM funcionarios WHERE sexo = 'M')
+	
+/*
+ *  > ANY (valor1, valor2, valor3):
+ * 	Retorna as linhas da tabela com valores maiores que o valor1, OU valor2, OU valor3. OU seja, maior que o mínimo.
+ */
+SELECT
+	*
+FROM
+	funcionarios
+WHERE
+	idade > ANY (SELECT idade FROM funcionarios WHERE sexo = 'M')
+
+/*
+ *  < ANY (valor1, valor2, valor3):
+ * 	Retorna as linhas da tabela com valores menores que o valor1, OU valor2, OU valor3. Ou seja, menor que o máximo
+ */
+SELECT
+	*
+FROM
+	funcionarios
+WHERE
+	idade < ANY (SELECT idade FROM funcionarios WHERE sexo = 'M')
+
+-- Podemos usar o "SOME", ele possui o mesmo efeito do ANY, mas o mais usando o "ANY"
 	
 
+/*
+ *  > ALL (valor1, valor2, valor3):
+ * 	Retorna as linhas da tabela contendo valores maiores que valor1, E valor2, E valor3. Ou seja, maior que o máximo
+ */
+SELECT
+	*
+FROM
+	funcionarios
+WHERE
+	idade > ALL (SELECT idade FROM funcionarios WHERE sexo = 'M')
+
+	
+/*
+ *  < ALL (valor1, valor2, valor3):
+ * 	Retorna as linhas da tabela contendo valores menores que valor1, E valor2, E valor3. Ou seja, menor que o máximo
+ */
+SELECT
+	*
+FROM
+	funcionarios
+WHERE
+	idade < ALL (SELECT idade FROM funcionarios WHERE sexo = 'M')
 
 
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
