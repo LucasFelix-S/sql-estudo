@@ -7,6 +7,7 @@ SELECT
 FROM
 	tbProdutos;
 
+
 -- SELECT com SUM:
 SELECT 
 	SUM(qtd_venda)		AS 'valor total da venda'
@@ -169,6 +170,25 @@ SELECT
 	,p.status_produto
 	,v.qtd_venda
 	,v.valor_venda
+FROM
+	tbVendas v
+LEFT JOIN
+	tbProdutos p
+	ON v.codigo_produto = p.codigo_produto
+
+------------
+-- [CASE] --
+------------
+SELECT
+	v.codigo_produto		AS 'código do produto'
+	,p.descricao_produto	AS 'descrição do produto'
+	,CASE
+		WHEN p.status_produto = 'Inativo' THEN 'inativo para compra e venda'
+		ELSE 'ativo para compra e venda'
+	END						AS 'situação de compra e venda'
+	,p.status_produto		AS 'status do produto'
+	,v.qtd_venda			AS 'quantidade da venda'
+	,v.valor_venda			AS 'valor da venda'
 FROM
 	tbVendas v
 LEFT JOIN
