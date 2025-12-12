@@ -7,7 +7,6 @@ SELECT
 FROM
 	tbProdutos;
 
-
 -- SELECT com SUM:
 SELECT 
 	SUM(qtd_venda)		AS 'valor total da venda'
@@ -254,7 +253,7 @@ GO
 
 SELECT * FROM vwAnaliseVendasPorProdutos
 
--- APAGANDO uma VIEW
+-- APAGANDO uma VIEW:
 DROP VIEW vwAnaliseVendasPorProdutos
 
 -----------------
@@ -283,7 +282,7 @@ ORDER BY
 	v.valor_venda DESC
 
 
--- Subqueries com EXISTS
+-- Subqueries com EXISTS:
 SELECT
 	p.codigo_produto			AS 'código do produto'
 	,p.descricao_produto		AS 'descrição do produto'
@@ -299,3 +298,27 @@ WHERE
 			WHERE qtd_venda > 6 
 			AND v.codigo_produto = p.codigo_produto
 			);
+
+-- Subquery aninhada (uma subquery dentro de outra):
+SELECT
+	erp.codigo_produto
+	,p.descricao_produto
+	,erp.estoque_erp
+FROM
+	tbEstoqueProdutoERP erp
+LEFT JOIN
+	tbProdutos p
+	ON p.codigo_produto = erp.codigo_produto
+WHERE
+	estoque_erp = (
+		SELECT
+			MAX(estoque_erp)
+		FROM
+			tbEstoqueProdutoERP
+		WHERE estoque_erp < (
+			SELECT
+				MAX(estoque_erp)
+			FROM
+				tbEstoqueProdutoERP
+		)
+	)
