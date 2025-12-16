@@ -375,3 +375,33 @@ GROUP BY
 )
 
 SELECT * FROM VendasPorLinha;
+
+-- CTE, Criando múltiplas CTE's e realizando um JOIN com CTE's:
+WITH DadosProdutos AS (
+SELECT
+	codigo_produto
+	,descricao_produto
+FROM
+	tbProdutos
+),
+VendasTop10 AS (
+SELECT
+	codigo_produto
+	,SUM(valor_venda)	AS 'total vendido R$'
+FROM
+	tbVendas
+GROUP BY
+	codigo_produto
+)
+
+SELECT 
+	v.codigo_produto
+	,p.descricao_produto
+	,v.[total vendido R$]
+FROM
+	VendasTop10 v
+LEFT JOIN
+	DadosProdutos p
+	ON v.codigo_produto = p.codigo_produto
+ORDER BY
+	v.[total vendido R$] DESC
