@@ -421,6 +421,15 @@ BEGIN
 END
 
 -- BREAK:
+DECLARE @vContador INT
+SET @vContador = 1
 
+WHILE @vContador <= 100
+BEGIN
+	PRINT 'O valor do contador é: ' + CAST(@vContador AS VARCHAR)
+	IF @vContador = 15
+	BREAK
+	SET @vContador += 1
+END
 
 -- CONTINUE:
