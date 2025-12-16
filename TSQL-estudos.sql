@@ -410,6 +410,7 @@ ORDER BY
 -- [LOOPS] --
 -------------
 -- WHILE, BREAK e CONTINUE
+
 -- WHILE:
 DECLARE @variavel INT
 SET @variavel = 1
@@ -433,3 +434,13 @@ BEGIN
 END
 
 -- CONTINUE:
+DECLARE @varContador INT
+SET @varContador = 0
+
+WHILE @varContador < 10
+BEGIN
+	SET @varContador += 1
+	IF @varContador = 3 OR @varContador = 6
+	CONTINUE
+	PRINT 'O valor do contador é: ' + CAST(@varContador AS VARCHAR)
+END
