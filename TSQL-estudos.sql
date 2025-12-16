@@ -405,3 +405,22 @@ LEFT JOIN
 	ON v.codigo_produto = p.codigo_produto
 ORDER BY
 	v.[total vendido R$] DESC
+
+-------------
+-- [LOOPS] --
+-------------
+-- WHILE, BREAK e CONTINUE
+-- WHILE:
+DECLARE @variavel INT
+SET @variavel = 1
+
+WHILE @variavel <= 10
+BEGIN
+	PRINT 'O valor do contador é: ' + CAST(@variavel AS VARCHAR)
+	SET @variavel = @variavel + 1
+END
+
+-- BREAK:
+
+
+-- CONTINUE:
