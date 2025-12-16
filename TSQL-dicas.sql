@@ -14,3 +14,10 @@ Para executá-lo podemos usar o CTRL + L, ou clicar no ícone próximo ao botão de 
 A CTE sempre precisa ser usada logo em seguida por um SELECT, INSERT, UPDATE ou DELETE. Se não você só cria a CTE e 
 o SGBD "não sabe" o que fazer com ela após a sua criação.
 */
+
+-------------------
+--[USO DOS LOOPS]--
+-------------------
+/*
+Sempre tomar cuidado com LOOPS infinitos, analisar anteriormente para ver se as variáveis estão sendo atualizadas corretamente.
+*/
