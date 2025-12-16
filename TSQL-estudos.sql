@@ -322,3 +322,56 @@ WHERE
 				tbEstoqueProdutoERP
 		)
 	)
+
+-----------
+-- [CTE] --
+-----------
+-- Commom Table Expression:
+WITH cte AS (
+SELECT
+	codigo_produto
+	,descricao_produto
+	,status_produto
+FROM 
+	tbProdutos
+WHERE
+	linha_produto = 'Calçados'
+)
+
+SELECT
+	COUNT(*) AS 'linhas da CTE'
+FROM 
+	cte;
+
+-- CTE, Calculando agregações:
+WITH AgregadoPorLinha AS (
+SELECT
+	linha_produto
+	,COUNT(*)		AS 'total'
+FROM
+	tbProdutos
+GROUP BY
+	linha_produto
+)
+
+SELECT AVG(total) AS 'total' FROM AgregadoPorLinha;
+
+-- CTE, Nomeando colunas de uma CTE na declaração dela:
+WITH VendasPorLinha(CdProduto, DsProduto, LnProduto, TotalVenda) AS (
+SELECT
+	v.codigo_produto
+	,p.descricao_produto
+	,p.linha_produto
+	,SUM(v.valor_venda)
+FROM
+	tbVendas v
+LEFT JOIN
+	tbProdutos p
+	ON v.codigo_produto = p.codigo_produto
+GROUP BY
+	v.codigo_produto
+	,p.descricao_produto
+	,p.linha_produto
+)
+
+SELECT * FROM VendasPorLinha;
