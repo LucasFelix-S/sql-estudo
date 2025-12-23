@@ -444,3 +444,55 @@ BEGIN
 	CONTINUE
 	PRINT 'O valor do contador é: ' + CAST(@varContador AS VARCHAR)
 END
+
+------------------------
+-- [WINDOW FUNCTIONS] --
+------------------------
+
+-- Usando o comando OVER para saber o total vendido:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,SUM(Qtd_Vendida) OVER() AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER + PARTITION BY para saber o total vendido por região:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,SUM(Qtd_Vendida) OVER(PARTITION BY Regiao) AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER para saber o total de lojas:
+SELECT
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,COUNT(*) OVER() AS 'Qtd. Lojas'
+FROM
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER + PARTITION BY para saber o total de lojas por região:
+SELECT
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,COUNT(*) OVER(PARTITION BY Regiao) AS 'Qtd. Lojas'
+FROM
+	Lojas
+ORDER BY
+	ID_Loja ASC
