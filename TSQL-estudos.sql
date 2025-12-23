@@ -448,7 +448,7 @@ END
 ------------------------
 -- [WINDOW FUNCTIONS] --
 ------------------------
-
+-- SUM:
 -- Usando o comando OVER para saber o total vendido:
 SELECT 
 	ID_Loja
@@ -473,6 +473,7 @@ FROM
 ORDER BY
 	ID_Loja ASC
 
+-- COUNT:
 -- Usando o comando OVER para saber o total de lojas:
 SELECT
 	ID_Loja
@@ -493,6 +494,82 @@ SELECT
 	,Qtd_Vendida
 	,COUNT(*) OVER(PARTITION BY Regiao) AS 'Qtd. Lojas'
 FROM
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- AVG:
+-- Usando o comando OVER para saber a média vendida:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,AVG(Qtd_Vendida) OVER() AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER + PARTITION BY para saber a média vendida por região:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,AVG(Qtd_Vendida) OVER(PARTITION BY Regiao) AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- MIN:
+-- Usando o comando OVER para saber o mínimo vendido:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,MIN(Qtd_Vendida) OVER() AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER + PARTITION BY para saber o mínimo vendido por região:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,MIN(Qtd_Vendida) OVER(PARTITION BY Regiao) AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+
+-- MAX:
+-- Usando o comando OVER para saber o máximo vendido:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,MAX(Qtd_Vendida) OVER() AS 'total vendido'
+FROM  
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Usando o comando OVER + PARTITION BY para saber o máximo vendido por região:
+SELECT 
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,MAX(Qtd_Vendida) OVER(PARTITION BY Regiao) AS 'total vendido'
+FROM  
 	Lojas
 ORDER BY
 	ID_Loja ASC
