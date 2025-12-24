@@ -573,3 +573,29 @@ FROM
 	Lojas
 ORDER BY
 	ID_Loja ASC
+	
+-- Calculando % de participação de cada loja em relação ao total de vendas de totas as lojas:
+SELECT
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,SUM(Qtd_Vendida) OVER() AS 'total vendido'
+	,FORMAT(Qtd_Vendida / SUM(Qtd_Vendida) OVER(), '0.00%') AS '% do Total'
+FROM
+	Lojas
+ORDER BY
+	ID_Loja ASC
+
+-- Calculando % de participação de cada loja em relação ao total de vendas de cada região:
+SELECT
+	ID_Loja
+	,NomeLoja
+	,Regiao
+	,Qtd_Vendida
+	,SUM(Qtd_Vendida) OVER(PARTITION BY Regiao) AS 'total vendido por região'
+	,FORMAT(Qtd_Vendida/SUM(Qtd_Vendida) OVER(PARTITION BY Regiao), '0.00%') AS '% por Regiao'
+FROM
+	Lojas
+ORDER BY
+	ID_Loja ASC
